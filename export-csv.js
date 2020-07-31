@@ -186,12 +186,9 @@
                 }
             }
 
-            // TODO: if coordinates are defined add them to the row
+            // Add the X/date/category and coordinates to the row if defined
             row = coordinates ? [category, coordinates.latitude, coordinates.longitude, ...row] :
                 [category, ...row];
-
-            // Add the X/date/category
-            // row.unshift(category);
 
             dataRows.push(row);
         });
