@@ -45,6 +45,7 @@
             x,
             xTitle = xAxis.options.title && xAxis.options.title.text,
             coordinates = this.series[0].userOptions.coordinates,
+            coordinateScale = 4,
 
             // Options
             dateFormat = options.dateFormat || '%Y-%m-%d %H:%M:%S',
@@ -187,8 +188,9 @@
             }
 
             // Add the X/date/category and coordinates to the row if defined
-            row = coordinates ? [category, coordinates.latitude, coordinates.longitude, ...row] :
-                [category, ...row];
+            row = coordinates ?
+                [category, coordinates.latitude.toFixed(coordinateScale),
+                    coordinates.longitude.toFixed(coordinateScale), ...row] : [category, ...row];
 
             dataRows.push(row);
         });
