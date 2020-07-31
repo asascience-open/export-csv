@@ -165,11 +165,9 @@
             xTitle = yAxis.userOptions.title.text.charAt(0).toUpperCase() + yAxis.userOptions.title.text.slice(1); 
         }
 
-        // TODO: add coordinate columns if coordinates are defined
-        dataRows = coordinates ? [[xTitle, 'Latitude (degreesN)', 'Longitude degreesE)'].concat(names)] :
+        // add latitude/longitude columns if coordinates are defined
+        dataRows = coordinates ? [[xTitle, 'Latitude (degreesN)', 'Longitude (degreesE)'].concat(names)] :
             [[xTitle].concat(names)];
-
-        // dataRows = [[xTitle].concat(names)];
 
         // Add the category column
         each(rowArr, function (row) {
