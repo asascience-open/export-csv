@@ -44,6 +44,8 @@
             i,
             x,
             xTitle = xAxis.options.title && xAxis.options.title.text,
+            coordinates = this.series[0].userOptions.coordinates,
+            coordinateScale = 4,
 
             // Options
             dateFormat = options.dateFormat || '%Y-%m-%d %H:%M:%S',
@@ -163,7 +165,10 @@
         } else if (isProfileSeries) {
             xTitle = yAxis.userOptions.title.text.charAt(0).toUpperCase() + yAxis.userOptions.title.text.slice(1); 
         }
-        dataRows = [[xTitle].concat(names)];
+
+        // add latitude/longitude columns if coordinates are defined
+        dataRows = coordinates ? [[xTitle, 'Latitude (degreesN)', 'Longitude (degreesE)'].concat(names)] :
+            [[xTitle].concat(names)];
 
         // Add the category column
         each(rowArr, function (row) {
@@ -182,8 +187,11 @@
                 }
             }
 
-            // Add the X/date/category
-            row.unshift(category);
+            // Add the X/date/category and coordinates to the row if defined
+            row = coordinates ?
+                [category, coordinates.latitude.toFixed(coordinateScale),
+                    coordinates.longitude.toFixed(coordinateScale), ...row] : [category, ...row];
+
             dataRows.push(row);
         });
 
